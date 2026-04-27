@@ -1,51 +1,33 @@
-# Kubernetes Examples
+# AI/ML Examples on Kubernetes
 
-Welcome to the official Kubernetes Examples repository! This curated collection,
-stewarded by SIG Apps, provides high-quality, educational examples for running a
-diverse range of applications and workloads on Kubernetes.
+Welcome to the AI/ML examples section! Our goal is to provide a collection of
+community-curated, open-source reference manifests for deploying and managing
+AI/ML workloads, MLOps toolchains, and end-to-end platforms on Kubernetes.
 
-Our goal is to offer a central hub where you can:
-* **Discover** practical implementations for various use cases.
-* **Learn** common patterns and best practices for deploying applications on Kubernetes.
-* **Explore** configurations for general-purpose applications as well as specialized
-ones like AI/ML workloads and platforms.
+This area is under active development as part of a broader initiative to enhance
+the `kubernetes/examples` repository. We aim to simplify the developer and operator
+experience for AI applications on Kubernetes, promoting best practices and interoperability.
 
-## Browse Examples
+## Vision for AI/ML Examples
 
-We encourage you to explore the subdirectories to find examples relevant to your needs.
-Examples are organized into categories, such as:
+We envision this section housing examples such as:
+* Setups for distributed training frameworks.
+* Configurations for model serving solutions.
+* Blueprints for data versioning and experiment tracking integrations.
+* End-to-end MLOps platform examples.
+* "AI Kits" designed to help AI/ML experts quickly get started on Kubernetes.
 
-* [AI](AI/): Demonstrations of AI/ML model training, serving, end-to-end platform
-reference manifests, and MLOps toolchains.
-* [Web](web/): Examples of web-based applications, from simple static sites to more complex multi-tier applications.
-* [Databases](databases/): Best practices and configurations for deploying various types of databases on Kubernetes.
-* ... (and more as the collection grows!)
+## Call for Contributions
 
-Each example includes its own detailed `README.md` file covering:
-* Purpose and learning objectives
-* Prerequisites (including Kubernetes version and hardware if applicable)
-* Step-by-step deployment instructions
-* Verification and cleanup commands
-* Key Kubernetes concepts used
+The success of this initiative depends on community contributions! If you have expertise
+in running AI/ML workloads on Kubernetes or ideas for valuable examples, we strongly
+encourage you to contribute.
 
-## Contributing to Kubernetes Examples
+We are particularly interested in examples that are:
+* Educational and provide an easy start for AI/ML practitioners new to Kubernetes.
+* Modular and showcase best practices.
+* Cover a diverse range of tools and MLOps stages.
 
-We welcome contributions from the community! If you have an example that showcases
-how to run applications or workloads on Kubernetes effectively and educates users,
-please consider sharing it.
+## Current Status
 
-Before contributing, please thoroughly review our:
-1. [Example Guidelines](guidelines.md): These outline the standards, structure,
-   and best practices all examples must follow.
-2. [CONTRIBUTING.md](CONTRIBUTING.md): This provides instructions on the contribution
-   process, including how to propose, submit, and review examples.
-
-Your contributions help make Kubernetes more accessible and understandable for everyone.
-
-## Our Philosophy
-
-We aim for these examples to be:
-* **Educational:** Clearly explaining how and why things work.
-* **Practical:** Demonstrating real-world (though possibly simplified) applications and platforms.
-* **Current:** Reflecting modern Kubernetes features and best practices.
-* **Maintained:** Kept up-to-date by the community and SIG Apps.
+_This section is currently being populated. Check back soon for our first set of AI/ML examples!_
