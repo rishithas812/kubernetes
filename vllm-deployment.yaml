@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-gemma-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gemma-server
+  template:
+    metadata:
+      labels:
+        app: gemma-server
+        # Labels for better functionality within GKE.
+        # ai.gke.io/model: gemma-3-1b-it
+        # ai.gke.io/inference-server: vllm
+        # examples.ai.gke.io/source: user-guide
+    spec:
+      containers:
+      - name: inference-server
+        image: vllm/vllm-openai:v0.11.0
+        resources:
+          requests:
+            cpu: "2"
+            memory: "10Gi"
+            ephemeral-storage: "10Gi"
+            nvidia.com/gpu: "1"
+          limits:
+            cpu: "2"
+            memory: "10Gi"
+            ephemeral-storage: "10Gi"
+            nvidia.com/gpu: "1"
+        command: ["python3", "-m", "vllm.entrypoints.openai.api_server"]
+        args:
+        - --model=$(MODEL_ID)
+        - --tensor-parallel-size=1
+        - --host=0.0.0.0
+        - --port=8080
+        # --- ADD THESE LINES TO FIX POSSIBLE OOM ERRORS ---
+        - --gpu-memory-utilization=0.85
+        - --max-num-seqs=64
+        env:
+        # 1 billion parameter model (smallest gemma model)
+        - name: MODEL_ID
+          value: google/gemma-3-1b-it
+        # Necessary for vLLM images >= 0.8.5.
+        # Ref - https://github.com/vllm-project/vllm/issues/18859
+        - name: LD_LIBRARY_PATH
+          value: "/usr/local/nvidia/lib64:/usr/local/cuda/lib64"
+        - name: HUGGING_FACE_HUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf-secret
+              key: hf_token
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+      volumes:
+      - name: dshm
+        emptyDir:
+            medium: Memory
+      # Node selectors are the main difference among the cloud providers,
+      # making sure vLLM pods land on Nodes with the correct GPU. The
+      # following are node selector examples for three cloud providers.
+      #
+      # - GKE
+      # nodeSelector:
+      #   cloud.google.com/gke-accelerator: nvidia-l4
+      #   cloud.google.com/gke-gpu-driver-version: default
+      #
+      # - EKS
+      # nodeSelector:
+      #   node.kubernetes.io/instance-type: p4d.24xlarge
+      #
+      # - AKS
+      # nodeSelector:
+      #   agentpiscasi.com/gpu: "true" # Common label for AKS GPU nodes
